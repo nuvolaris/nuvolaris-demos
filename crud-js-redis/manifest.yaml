@@ -1,0 +1,28 @@
+packages:
+  addr:
+    actions:
+      ping:
+        function:  api/ping.js
+        web: true
+        inputs:
+          redis: "redis://redis"
+      all:
+        function:  api/all.js
+        web: true
+        inputs:
+          redis: "redis://redis"
+      set:
+        function:  api/set.js
+        web: true
+        inputs:
+          redis: "redis://redis"
+      get:
+        function:  api/get.js
+        web: true
+        inputs:
+          redis: "redis://redis"
+      del:
+        function:  api/del.js
+        web: true
+        inputs:
+          redis: "redis://redis"

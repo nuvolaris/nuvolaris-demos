@@ -1,0 +1,13 @@
+wsk action list
+wsk action invoke addr/get -r
+wsk action invoke addr/set -p name Mike -p company Nuv -p phone 392 -r
+wsk action invoke addr/get -p name Mike -r
+wsk action invoke addr/set -p name Miri -p company Sciab -p phone 328 -r
+wsk action invoke addr/all -r
+wsk action invoke addr/del -p name Mike -r
+wsk action invoke addr/all -r
+wsk action invoke addr/delall -r
+wsk action invoke addr/all -r
+
+
+

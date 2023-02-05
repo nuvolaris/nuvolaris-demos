@@ -26,3 +26,7 @@ packages:
         web: true
         inputs:
           redis: "redis://redis"
+      delall:
+        function:  api/delall.js
+        inputs:
+          redis: "redis://redis"

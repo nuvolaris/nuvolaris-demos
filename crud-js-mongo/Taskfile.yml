@@ -1,0 +1,21 @@
+version: '3'
+
+tasks:
+  default: task -l
+
+  setup:
+    desc: install prerequisites
+    dir: web
+    cmds:
+    - npm install
+  
+  deploy:
+    desc: deploy project
+    cmds:
+    - wsk project deploy
+
+  dev:
+    desc: run in development mode
+    dir: web
+    cmds:
+    - npm run dev

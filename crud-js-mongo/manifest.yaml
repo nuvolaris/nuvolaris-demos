@@ -1,0 +1,24 @@
+packages:
+  addrmo:
+    inputs:
+      mongodb: "mongodb://nuvolaris:s3cr3t@mongodb/admin"
+    actions:
+      ping:
+        function:  api/ping.js
+        web: true
+      all:
+        function:  api/all.js
+        web: true
+      insert:
+        function: api/insert.js
+        web: true
+      find:
+        function: api/find.js
+        web: true
+      del:
+        function: api/del.js
+        web: true
+      delall:
+        function: api/delall.js
+        web: true
+      

@@ -1,0 +1,24 @@
+version: '3'
+
+tasks:
+  default: task -l
+
+  setup:
+    desc: install prerequisites
+    dir: web
+    cmds:
+    - npm install
+  
+  deploy:
+    desc: deploy project
+    cmds:
+    - wsk project deploy
+
+  dev:
+    desc: run in development mode
+    dir: web
+    cmds:
+    - npm run dev
+
+  redis-start: docker run -d --name=redis --rm -p 6379:6379 redis
+  redis-stop: docker rm -f redis

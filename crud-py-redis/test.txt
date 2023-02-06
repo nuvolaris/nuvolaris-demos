@@ -1,0 +1,18 @@
+wsk action list
+
+wsk activation list
+
+wsk action invoke addrpy/ping -r
+wsk action invoke addrpy/set -p name Mike -p company Nuv -p phone 392 -r
+wsk action invoke addrpy/get -p name Mike -r
+
+wsk action invoke addrpy/all -r
+wsk action invoke addrpy/set -p name Miri -p company Sciab -p phone 328 -r
+wsk action invoke addrpy/all -r
+wsk action invoke addrpy/del -p name Mike -r
+wsk action invoke addrpy/all -r
+wsk action invoke addrpy/delall -r
+wsk action invoke addrpy/all -r
+
+
+

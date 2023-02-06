@@ -1,0 +1,34 @@
+packages:
+  addrpy:
+    actions:
+      all:
+        function:  api/all.py
+        web: true
+        inputs:
+          redis: "redis"
+      del:
+        function:  api/del.py
+        web: true
+        inputs:
+          redis: "redis"
+      delall:
+        function:  api/delall.py
+        web: true
+        inputs:
+          redis: "redis"
+      get:
+        function:  api/get.py
+        web: true
+        inputs:
+          redis: "redis"
+      ping:
+        function:  api/ping.py
+        web: true
+        inputs:
+          redis: "redis"
+      set:
+        function:  api/set.py
+        web: true
+        inputs:
+          redis: "redis"
+

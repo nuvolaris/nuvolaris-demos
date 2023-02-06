@@ -1,12 +1,13 @@
 wsk action list
 
 wsk action invoke addrmo/ping -r
-wsk action invoke addrmo/find -r
+wsk action invoke addrmo/all -r
 wsk action invoke addrmo/insert -p name Mike -p company Nuv -p phone 392 -r
+wsk action invoke addrmo/all -r
 wsk action invoke addrmo/find -p name Mike -r
 wsk action invoke addrmo/insert -p name Miri -p company Sciab -p phone 328 -r
-wsk action invoke addrmo/all -r
 wsk action invoke addrmo/del -p name Mike -r
+wsk action invoke addrmo/all -r
 wsk action invoke addrmo/delall -r
 
 

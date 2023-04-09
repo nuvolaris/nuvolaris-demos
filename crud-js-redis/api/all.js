@@ -5,10 +5,11 @@ async function main(args) {
 
     // read a set of keys
     let keys = await db.keys("address:*")
-    return keys.length == 0
+    /*return keys.length == 0
         ? { "data": [] } 
         : db.mGet(keys)
         .then(reply => ({ "data": reply.map(JSON.parse)} ))
-        .catch(err => ({ "error": err}))
+        .catch(err => ({ "error": err}))*/
+    return {body:keys}
 }
 

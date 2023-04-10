@@ -1,0 +1,15 @@
+packages:
+  sendmail:
+    inputs:
+      sendgrid: $SENDGRID
+      from: $FROM
+      to: $TO
+    actions:
+      nodehttps:
+        function: nodehttps.js
+        web: true
+      nodefetch:
+        function: nodefetch.js
+        web: true
+        # not requires in nuvolaris 0.3
+        docker: "ghcr.io/nuvolaris/action-nodejs-v18:0.3.0-morpheus.23041012"

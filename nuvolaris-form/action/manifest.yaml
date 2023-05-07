@@ -1,0 +1,22 @@
+packages:
+  form:
+    inputs:
+      redis: redis://redis
+      sendgrid: $SENDGRID
+      from: $FROM
+      to: $TO
+    actions:
+      send:
+        function: form/send.js
+        web: true
+      set:
+        function: form/set.js
+        web: true
+      sendgrid: 
+        function: form/sendgrid.js
+        web: true
+      sendgridfetch:
+        function: form/sendgridfetch.js
+        web: true
+        # not requires in nuvolaris 0.3
+        docker: "ghcr.io/nuvolaris/action-nodejs-v18:0.3.0-morpheus.23041012"

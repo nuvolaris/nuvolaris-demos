@@ -1,0 +1,170 @@
+/* pwdI begin with this command to create the template with svelte kit
+npm create svelte@latest web
+    option Skeleton project Typescript syntax none ather option
+cd web
+npm install
+npm run dev
+/* In an other bash create package
+nuv p create contact
+/* I don't care frontend I explain backend and how to use this. 
+I create a directory with the name action then I create a subdirectory 
+with the of the example in this case form and the the file send.js. This is the first code:
+*/
+function main(args)
+{
+    return {body:"Ciao"}
+}
+/* I create the file manifest.yaml under action. This is the code*/
+packages:
+  form:
+    actions:
+      send:
+        function: form/send.js
+        web: true
+/* then execute this command :*/
+nuv project deploy
+/* nuv project deploy get the manifest.yaml and creates packages files and so on */
+
+nuv url form/send
+/* Give me the url to see the body that I can see with the command:
+nuv i form/send
+/* result
+{
+    "body": "Ciao"
+} 
+
+/* in the corrispondence file under src/routes/form/+page.svelte I add script:
+<script>
+let url = "http://localhost:3233/api/v1/web/nuvolaris/form/send"
+async function send(){
+    let  res = await fetch(url)
+    let out = await res.text()
+    alert(out)
+}
+</script>
+/* and in the form I introduce this
+ <button type="submit" on:click={send}>Submit</button>
+/* this produces an alert
+/* In the next steps I introduce redis. I have a directory named action and a subdirectory form 
+/* I put 2 js files send.js and set.js
+send.js
+function main(args)
+{
+    return {body:"Ciao"}
+}
+set.js
+async function main(args){
+    const db = require("redis").createClient({"url":args.redis})
+    await db.connect()
+
+    let key = "address:"+args.name
+    let value = JSON.stringify({
+        "Firstname": args.firstname || "",
+        "Lastname": args.lastname || "",
+        "Company": args.company || "",
+        "Email": args.email || "",
+        "Textmessage": args.textmessage || ""
+    })
+    return db.set(key,value)
+    .then(replay => ({"body":{"set":replay}}))
+    .catch(err => ({"body":{"error": err }}))
+    }
+/* form/+page.svelte becames
+<script>
+import { onMount } from 'svelte'
+let url = "http://localhost:3233/api/v1/web/nuvolaris/form/"
+let form = {}
+function submit() {
+        console.log(form)
+        fetch(url+"set", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(form)
+        })
+        .then(x=>x.json())
+        .then(x=>alert(x["set"]))
+        .catch(console.log)
+        form = {}
+    }
+async function send(){
+    let  res = await fetch(url)
+    let out = await res.text()
+    alert(out)
+}
+</script>
+
+
+<form>
+
+  <!-- Grid -->
+  <div class="grid" width="350">
+
+    <!-- Markup example 1: input is inside label -->
+    <label for="firstname">
+      First name
+      <input type="text" id="firstname" name="firstname" placeholder="First name" bind:value={form.fistname} required>
+    </label>
+
+    <label for="lastname">
+      Last name
+      <input type="text" id="lastname" name="lastname" placeholder="Last name" bind:value={form.lastname} required>
+    </label>
+
+  </div>
+
+  <!-- Markup example 2: input is after label -->
+  <div class="grid" width="350">
+    <label for="company">Company
+      <input type="text" id="company" name="company" placeholder="company" bind:value={form.company} >
+    </label>
+    <label for="email">Email address
+      <input type="email" id="email" name="email" placeholder="Email address" bind:value={form.email} required  >
+    </label>
+  </div>
+  <label for="textmessage">Text message</label>
+  <textarea name="textmessage" rows="5" cols="50" id="textmessage" placeholder="Text message" bind:value={form.textmessage}></textarea>
+  <small>We'll never share your email with anyone else.</small>
+
+  <!-- Button -->
+  <button type="submit" on:click={submit}>Submit</button>
+
+</form>
+/* manifes.yaml
+packages:
+  form:
+    inputs:
+      redis: redis://redis
+    actions:
+      send:
+        function: form/send.js
+        web: true
+      set:
+        function: form/set.js
+        web: true
+/* When you modify derver side remember to give this message 
+nuv project deploy
+/* this command allow you to see the log on the bash
+nuv poll
+/* There is an other way to send an email with fetch */
+async function main(args) {
+
+    let res = await fetch("https://api.sendgrid.com/v3/mail/send", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + args.sendgrid
+        },
+        body: JSON.stringify({
+            "from": { "email": args.from },
+            "subject": "Sending with SendGrid is Fun",
+            "personalizations": [
+                { "to": [{ "email": args.to }] }
+            ],
+            "content": [
+                { "type": "text/plain", "value": "and easy to do anywhere, even with cURL" }
+            ]
+        })
+    })
+    return { body: { ok: res.ok } }
+}
+

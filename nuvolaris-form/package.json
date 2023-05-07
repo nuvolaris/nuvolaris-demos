@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@picocss/pico": "^1.5.7",
+    "node-fetch": "^3.3.1"
+  }
+}
